@@ -1,10 +1,10 @@
 import { Text, SafeAreaView, StyleSheet } from 'react-native';
-import Calculo from './components/Calculo'
+import Calcular from './components/Calculo'
 
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
-    <Calculo/>
+    <Calcular/>
     </SafeAreaView>
   );
 }
@@ -14,8 +14,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F7B60A',
+    backgroundColor: '#FFFAFA',
     padding: 8,
-  }
+  },
 });
 

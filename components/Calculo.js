@@ -1,75 +1,93 @@
-import { useState } from "react"
-import { View, Text, TextInput, StyleSheet, Button, Image } from 'react-native'
+import { useState } from "react";
+import { View, Text, TextInput, StyleSheet, Button, Image } from 'react-native';
 
+const Salario = (props) => {
+  const [salBase, setSalBase] = useState("0");
+  const [horasTrabalhadas, setHorasTrabalhadas] = useState("0");
+  const [salFinal, setSalFinal] = useState(null);
 
-const Calculo = (props) => {
-  const [salBase, setSalBase] = useState("0")
-  const [horasTrab, setHorasTrab] = useState("0")
-  const [difHoras, setDifHoras] = useState("0")
-  const [salAMais, setSalAMais] = useState("0")
+  const calcular = () => {
+    const salarioBase = parseFloat(salBase);
+    const horasTrabalhadasNumerico = parseFloat(horasTrabalhadas);
 
-  const calcularSalario = () => {
-   if(horasTrab > 160){
-    difHoras = horasTrab - 160
+    const valHoraNormal = salarioBase / 160;
+    let horasExtras = 0;
+    let salarioCalculado = salarioBase;
 
-  }
-}
+    if (horasTrabalhadasNumerico > 160) {
+      horasExtras = horasTrabalhadasNumerico - 160;
+      salarioCalculado = salarioCalculado + (horasExtras * valHoraNormal) * 1.5;
+    }
 
-return(
-  <View>
-    <Text style={styles.titulo}>Calcular descontos</Text>
-    <Image style={styles.logo} source={require('../assets/bgcalculo.jpg')} />
-    <Text style={styles.texto}>Digite o valor da compra</Text>
+    setSalFinal(salarioCalculado);
+  };
+
+  return (
+    <View>
+      <Image style={styles.logo} source={require('../assets/imgMoeda.png')} />
+      <Text style={styles.titulo}>Calcular Salário</Text>
+      <Text style={styles.texto}>Digite o Salário base</Text>
       <TextInput
         style={styles.resposta}
-        value={valorCompra}
-        onChangeText={setValorCompra}
-        placeholder="numero"
+        onChangeText={setSalBase}
+        placeholder="Salário"
         keyboardType="numeric"
+        value={salBase}
+      />
+
+      <Text style={styles.texto}>Digite o número de horas trabalhadas</Text>
+      <TextInput
+        style={styles.resposta}
+        onChangeText={setHorasTrabalhadas}
+        placeholder="Horas trabalhadas"
+        keyboardType="numeric"
+        value={horasTrabalhadas}
       />
 
       <Button
-          title="Resultado"
-          onPress={calcDesconto}
-        />
-     
-<Text style={styles.texto2}>O valor final da compra é de: R${valorFinal}</Text>
+        title="Calcular"
+        onPress={calcular}
+      />
 
-  </View>
-)
-}
+        <Text style={styles.texto2}>O salário final é R$ {salFinal}</Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   logo: {
-     height: 300,
-    width: 350,
-  }, titulo: {
+    height: 200,
+    width: 200,
+  },
+  titulo: {
     marginTop: 20,
     fontSize: 23,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: '#3400D3'
-  }, texto: {
-    marginTop: 20,
-    marginBottom: 20,
-    fontSize: 17,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    color: '#000'
-  }, texto2: {
+    color: '#FF8C00',
+  },
+  texto: {
     marginTop: 20,
     marginBottom: 20,
     fontSize: 17,
     textAlign: 'center',
     color: '#000',
-    fontWeight: 'bold'
-  }, resposta: {
+  },
+  texto2: {
+    marginTop: 20,
+    marginBottom: 20,
+    fontSize: 17,
+    textAlign: 'center',
+    color: '#FF8C00',
+    fontWeight: 'bold',
+  },
+  resposta: {
     marginTop: 0,
     marginBottom: 20,
     textAlign: 'center',
-    fontSize: 20,
-    color: '#000'
+    fontSize: 15,
+    color: '#000',
   }
-})
+});
 
-export default Calculo
+export default Salario;
